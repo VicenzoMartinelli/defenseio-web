@@ -1,22 +1,35 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Grid } from "@material-ui/core";
 
 const FlexGrid = styled(Grid)`
+  display: flex;
   ${({ padd }) =>
     padd &&
     css`
       padding: ${padd};
     `}
-    height: '100%;'
+    ${({ margin }) =>
+      margin &&
+      css`
+        margin: ${margin};
+      `}
+
 `;
 
-const FlexBox = ({ padd, margin, children, ...gridProps }) => {
+const FlexBox = ({ padd, margin, children, max, ...gridProps }) => {
   return (
-    <FlexGrid padd={padd} margin={margin} {...gridProps}>
+    <FlexGrid container max={max} padd={padd} margin={margin} {...gridProps}>
       {children}
     </FlexGrid>
   );
+};
+
+FlexBox.propTypes = {};
+
+FlexBox.defaultProps = {
+  max: "false"
 };
 
 export default FlexBox;

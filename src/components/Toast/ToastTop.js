@@ -61,7 +61,6 @@ function MySnackbarContentWrapper({ className, message, onClose, variant, ...oth
 }
 
 export default function ToastTop({ appearance, children }) {
-  const classes = useStyles();
   return (
     <MySnackbarContentWrapper
       variant={appearance}

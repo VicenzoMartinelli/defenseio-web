@@ -9,8 +9,8 @@ const NoMatch = () => (
   </div>
 );
 
-const Login = lazy(() => import("./pages/login/login"));
-//const Home = lazy(() => import("./pages/home/index"));
+const Login = lazy(() => import("./pages/login/index.js"));
+const Register = lazy(() => import("./pages/register/index.js"));
 
 const Routes = () => (
   <Router history={history}>
@@ -18,7 +18,8 @@ const Routes = () => (
       <Switch>
         {/* <Route exact path={["", "/", "/home"]} component={Home} /> */}
         {/* <Route exact path="/articles/sei" component={() => <Articles event={1} />} /> */}
-        <Route path="/login" component={Login} />
+        <Route path="/login" component={Login} exact />
+        <Route path="/register" component={Register} exact />
         <Route component={NoMatch} />
       </Switch>
     </Suspense>

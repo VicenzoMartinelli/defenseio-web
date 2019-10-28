@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/styles";
 import homeLogo from "../../assets/home-logo.svg";
 import back from "../../assets/back.svg";
 
-const useLoginStyle = makeStyles({
+const useRegisterStyle = makeStyles({
   root: {
     height: "100vh",
     background: `url('${back}')`,
@@ -37,10 +37,15 @@ const useLoginStyle = makeStyles({
   pos: {
     marginBottom: "10%"
   },
-  registerButton: {
-    marginTop: 10,
-    display: "block"
+  footerContainer: {
+    flexBasis: 0,
+    justifyContent: 'space-between',
+    padding: '0 5%',
+    alignItems: 'self-start'
+  },
+  step:{ 
+    
   }
 });
 
-export default useLoginStyle;
+export default useRegisterStyle;

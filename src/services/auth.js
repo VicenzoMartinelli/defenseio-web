@@ -1,23 +1,17 @@
 import decode from "jwt-decode";
 import api from "./api";
 
-export const login = async (email, password) => {
+export const login = async data => {
   try {
-    const res = await api.post(`/auth/login`, {
-      email,
-      password
-    });
+    const res = await api.post(`/auth/sign-in`, data);
 
-    setToken(res.data.accessToken);
+    if (res.data.isSuccess) {
+      setToken(res.data.body.accessToken);
+    }
 
     return Promise.resolve(res);
-  } catch (error) {
-    return Promise.resolve({
-      success: false,
-      msg: error.response.data.occurrences
-        ? error.response.data.occurrences[0].message
-        : error.response.data
-    });
+  } catch (err) {
+    throw err.response.data.erros[0].description;
   }
 };
 
@@ -25,6 +19,20 @@ export const loggedIn = () => {
   const token = getToken();
 
   return token && !isTokenExpired(token);
+};
+
+export const register = async data => {
+  try {
+    const res = await api.post(`/auth/2/register`, data);
+
+    if (res.data.isSuccess) {
+      setToken(res.data.body.accessToken);
+    }
+
+    return Promise.resolve(res);
+  } catch (err) {
+    throw err.response.data.erros[0].description;
+  }
 };
 
 export const isTokenExpired = token => {
@@ -39,39 +47,14 @@ export const isTokenExpired = token => {
   }
 };
 
-export const setToken = idToken => localStorage.setItem("ssc_jwt_tkn", idToken);
+export const setToken = idToken => localStorage.setItem("dfs_jwt_tkn", idToken);
 
-export const getToken = () => localStorage.getItem("ssc_jwt_tkn");
+export const getToken = () => localStorage.getItem("dfs_jwt_tkn");
 
-export const logout = () => localStorage.removeItem("ssc_jwt_tkn");
+export const logout = () => localStorage.removeItem("dfs_jwt_tkn");
 
 export const getConfirm = () => {
   const confirm = decode(getToken());
 
   return confirm;
-};
-
-export const fetch = (url, options) => {
-  const headers = {};
-
-  if (loggedIn()) {
-    headers["Authorization"] = "Bearer " + getToken();
-  }
-
-  return fetch(url, {
-    headers,
-    ...options
-  })
-    .then(_checkStatus)
-    .then(response => response.json());
-};
-
-const _checkStatus = response => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-  }
 };

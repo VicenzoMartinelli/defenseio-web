@@ -12,13 +12,26 @@ export default createMuiTheme({
   overrides: {
     MuiButton: {
       text: {
-        color: '#FFF'
+        color: '#16d173'
       },
       textPrimary: {
         color: '#FFF'
       },
       containedPrimary: {
         color: '#FFF'
+      }
+    },
+    MuiStepIcon: {
+      root: {
+        color: 'rgba(255, 255, 255, 0.38)',
+        border: '1px solid #16d173',
+        borderRadius: 15,
+        '& text': {
+          fill: '#16d173'
+        },
+        '&$active text': {
+          fill: '#fff'
+        },
       }
     }
   }
