@@ -14,41 +14,11 @@ api.interceptors.request.use(
   err => Promise.reject(err)
 );
 
-// export const findArticles = async (event, page) => {
-//   const params = new URLSearchParams();
+export const findDistricts = async () => {
+  return await api.get(`/geographic/districts/`);
+};
 
-//   params.append("page", page);
-
-//   return await api.get(`articles/${event}`, params);
-// };
-
-// export const saveArticle = async article => {
-//   try {
-//     const res = await api.put(`/articles`, article);
-
-//     return Promise.resolve(res);
-//   } catch (error) {
-//     return Promise.resolve({
-//       success: false,
-//       msg: error.response.data.occurrences
-//         ? error.response.data.occurrences[0].message
-//         : error.response.data
-//     });
-//   }
-// };
-
-// export const findReportArticles = async (
-//   event,
-//   modality,
-//   apresentationType
-// ) => {
-//   const params = new URLSearchParams();
-//   if (apresentationType) {
-//     params.append("apresentationType", apresentationType);
-//   }
-//   console.log(apresentationType);
-//   return await api.get(`/articles/articles-report/${event}/${modality}`, {
-//     params: params
-//   });
-// };
+export const findCities = async (districtId) => {
+  return await api.get(`/geographic/districts/${districtId}/cities`);
+};
 export default api;

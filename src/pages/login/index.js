@@ -18,7 +18,6 @@ import * as Yup from "yup";
 import { useToasts } from "react-toast-notifications";
 import { Formik, Form } from "formik";
 import * as auth from "../../services/auth";
-import history from "../../history";
 import FlexBox from "components/FlexBox";
 import FormikTextInput from "components/FormikTextInput";
 import useLoginStyle from "./login-style";

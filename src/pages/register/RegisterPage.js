@@ -1,0 +1,121 @@
+import React, { useEffect, useCallback, useState, useContext } from "react";
+import PropTypes from "prop-types";
+import {
+  Card,
+  Grid,
+  Box,
+  Stepper,
+  Step,
+  Typography,
+  StepLabel
+} from "@material-ui/core";
+import * as auth from "../../services/auth";
+import FlexBox from "components/FlexBox";
+import useRegisterStyle from "./style";
+import { useRouter } from "hooks/useRouter";
+import LocationDataStep from "./LocationDataStep";
+import BasicDataStep from "./BasicDataStep";
+
+const RegisterPage = props => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const classes = useRegisterStyle();
+
+  const router = useRouter();
+
+  const getSteps = useCallback(() => {
+    return ["Dados básicos", "Localização", "Modalidades"];
+  }, []);
+
+  const getStepContent = () => {
+    switch (activeStep) {
+      case 0:
+        return <BasicDataStep next={handleNext} />;
+      case 1:
+        return <LocationDataStep next={handleNext} back={handleBack} />;
+      case 2:
+        return <Typography>DASDSAUDHUSIADAAS</Typography>;
+      default:
+        return "Unknown stepIndex";
+    }
+  };
+
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  // const handleSubmit = (values, actions) => {
+  //   //actions.setSubmitting(true);
+  //   setActiveStep(activeStep + 1);
+
+  //   switch(activeStep){
+  //     case 0:
+
+  //       break;
+  //   }
+
+  //   if (activeStep === 1) {
+  //     console.log(
+  //       "aa",
+  //       `${values["cep"]}, ${values["address"]}, ${values["addressNumber"]}`
+  //     );
+  //     geocode
+  //       .fromAddress(
+  //         `${values["cep"]}, ${values["address"]}, ${values["addressNumber"]}`
+  //       )
+  //       .then(
+  //         response => {
+  //           const { lat, lng } = response.results[0].geometry.location;
+  //           console.log("lat, long", `${lat}, ${lng}`);
+  //         },
+  //         error => {
+  //           console.error("erro");
+  //         }
+  //       );
+  //   }
+  // };
+
+  useEffect(() => {
+    if (auth.loggedIn()) router.push("/");
+  }, []);
+
+  return (
+    <Box className={classes.root}>
+      <Card className={classes.card}>
+        <Grid className={classes.fullHeight} container spacing={0}>
+          <FlexBox
+            container
+            alignItems="flex-start"
+            justify="center"
+            direction="column"
+            wrap="nowrap"
+          >
+            <Stepper
+              style={{ height: "20%", width: "100%" }}
+              activeStep={activeStep}
+              alternativeLabel
+              className={classes.step}
+            >
+              {getSteps().map(label => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <FlexBox direction="column" style={{ height: "80%" }}>
+              {getStepContent()}
+            </FlexBox>
+          </FlexBox>
+        </Grid>
+      </Card>
+    </Box>
+  );
+};
+
+RegisterPage.propTypes = {};
+
+export default RegisterPage;

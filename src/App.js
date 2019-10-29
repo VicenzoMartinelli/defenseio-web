@@ -10,24 +10,27 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import moment from "moment";
 import "moment/locale/pt-br";
+import GeocodeProvider from "contexts/GeocodeProvider";
 
 const App = () => (
-  <MuiThemeProvider theme={theme}>
-    <ToastProvider
-      placement={"bottom-right"}
-      components={{ ToastContainer: ToastContainer, Toast: ToastTop }}
-    >
-      <MuiPickersUtilsProvider
-        utils={MomentUtils}
-        libInstance={moment}
-        locale={moment.locale("pt-br")}
+  <GeocodeProvider>
+    <MuiThemeProvider theme={theme}>
+      <ToastProvider
+        placement={"bottom-right"}
+        components={{ ToastContainer: ToastContainer, Toast: ToastTop }}
       >
-        <CssBaseline />
-        <Routes />
-        <GlobalStyle />
-      </MuiPickersUtilsProvider>
-    </ToastProvider>
-  </MuiThemeProvider>
+        <MuiPickersUtilsProvider
+          utils={MomentUtils}
+          libInstance={moment}
+          locale={moment.locale("pt-br")}
+        >
+          <CssBaseline />
+          <Routes />
+          <GlobalStyle />
+        </MuiPickersUtilsProvider>
+      </ToastProvider>
+    </MuiThemeProvider>
+  </GeocodeProvider>
 );
 
 export default App;
