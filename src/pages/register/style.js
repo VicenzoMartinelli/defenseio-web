@@ -15,13 +15,14 @@ const useRegisterStyle = makeStyles({
   },
   card: {
     width: "80%",
-    height: "70%",
-    borderRadius: 10,
+    height: "80%",
+    borderRadius: 5,
     boxShadow: "2px 3px 13px 5px rgba(0,0,0,0.2)"
   },
   fullHeight: {
     height: "100%",
-    overflowY: 'auto'
+    overflowY: "auto",
+    paddingBottom: 15
   },
   containerLogo: {
     height: "100%",
@@ -39,12 +40,13 @@ const useRegisterStyle = makeStyles({
   },
   footerContainer: {
     flexBasis: 0,
-    justifyContent: 'space-between',
-    padding: '0 5%',
-    alignItems: 'self-start'
+    justifyContent: "space-between",
+    padding: "15px 5%",
+    alignItems: "self-start"
   },
-  step:{ 
-    
+  doneImg: {
+    maxWidth: "60vw",
+    height: "30vh"
   }
 });
 

@@ -1,27 +1,16 @@
-import React, { useEffect, useCallback, useState, useContext } from "react";
-import PropTypes from "prop-types";
-import {
-  Card,
-  Grid,
-  Box,
-  Stepper,
-  Step,
-  Typography,
-  StepLabel
-} from "@material-ui/core";
-import * as auth from "../../services/auth";
+import React, { useCallback, useState } from "react";
+import { Card, Grid, Box, Stepper, Step, StepLabel } from "@material-ui/core";
 import FlexBox from "components/FlexBox";
 import useRegisterStyle from "./style";
 import { useRouter } from "hooks/useRouter";
 import LocationDataStep from "./LocationDataStep";
 import BasicDataStep from "./BasicDataStep";
+import ConclusionStep from "./ConclusionStep";
 
-const RegisterPage = props => {
+const RegisterPage = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   const classes = useRegisterStyle();
-
-  const router = useRouter();
 
   const getSteps = useCallback(() => {
     return ["Dados básicos", "Localização", "Modalidades"];
@@ -34,9 +23,9 @@ const RegisterPage = props => {
       case 1:
         return <LocationDataStep next={handleNext} back={handleBack} />;
       case 2:
-        return <Typography>DASDSAUDHUSIADAAS</Typography>;
+        return <ConclusionStep back={handleBack} />;
       default:
-        return "Unknown stepIndex";
+        return "";
     }
   };
 
@@ -47,41 +36,6 @@ const RegisterPage = props => {
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
-
-  // const handleSubmit = (values, actions) => {
-  //   //actions.setSubmitting(true);
-  //   setActiveStep(activeStep + 1);
-
-  //   switch(activeStep){
-  //     case 0:
-
-  //       break;
-  //   }
-
-  //   if (activeStep === 1) {
-  //     console.log(
-  //       "aa",
-  //       `${values["cep"]}, ${values["address"]}, ${values["addressNumber"]}`
-  //     );
-  //     geocode
-  //       .fromAddress(
-  //         `${values["cep"]}, ${values["address"]}, ${values["addressNumber"]}`
-  //       )
-  //       .then(
-  //         response => {
-  //           const { lat, lng } = response.results[0].geometry.location;
-  //           console.log("lat, long", `${lat}, ${lng}`);
-  //         },
-  //         error => {
-  //           console.error("erro");
-  //         }
-  //       );
-  //   }
-  // };
-
-  useEffect(() => {
-    if (auth.loggedIn()) router.push("/");
-  }, []);
 
   return (
     <Box className={classes.root}>

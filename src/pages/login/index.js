@@ -58,7 +58,9 @@ const LoginPage = props => {
         }
 
         addToast("Login ok!", { appearance: "success", autoDismiss: true });
-        //history.push("/");
+        setTimeout(() => {
+          router.push("/home");
+        });
       })
       .catch(err => {
         actions.setSubmitting(false);

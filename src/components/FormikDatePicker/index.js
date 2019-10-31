@@ -33,7 +33,7 @@ const FormikDatePicker = props => {
         />
       }
       inputProps={{
-        disabled: true
+        disabled: false
       }}
       InputAdornmentProps={{ position: "start" }}
       invalidDateMessage={"Data em formato inválido"}

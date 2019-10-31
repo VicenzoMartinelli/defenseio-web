@@ -40,6 +40,13 @@ export default createMuiTheme({
           backgroundColor: "#FFF"
         }
       }
+    },
+    MuiPickersDay: {
+      daySelected: {
+        '& p': {
+          color: '#FFF'
+        }
+      }
     }
   }
 });

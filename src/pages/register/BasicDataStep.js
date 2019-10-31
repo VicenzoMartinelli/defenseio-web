@@ -35,16 +35,14 @@ const BasicDataStep = memo(({ next }) => {
     documentIdentifier: Yup.string()
       .length(14, "Informe um cnpj válido")
       .required("Informe o cnpj"),
-    brazilianInscricaoEstadual: Yup.string().required(
-      "Informe sua inscrição estadual"
-    ),
-    licenseValidity: Yup.date().required("Informe a data de validate")
+    brazilianInscricaoEstadual: Yup.string()
+      .required("Informe sua inscrição estadual"),
+    licenseValidity: Yup.date().typeError("Insira uma data válida").required("Informe a data de validate")
   });
 
   function handleSubmit(values, actions) {
     actions.setSubmitting(true);
 
-    debugger;
     context.updateStepOne(values);
 
     next();

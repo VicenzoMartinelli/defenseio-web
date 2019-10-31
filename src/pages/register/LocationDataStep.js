@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, memo, useContext } from "react";
+import React, { useState, useEffect, memo, useContext } from "react";
 import { LocationCityOutlined, LocationOnOutlined } from "@material-ui/icons";
 import { findDistricts, findCities } from "services/api";
 import { Grid, Button } from "@material-ui/core";
@@ -10,47 +10,76 @@ import { Formik, Form } from "formik";
 import useRegisterStyle from "./style";
 import * as Yup from "yup";
 import RegisterContext from "./RegisterContext";
+import { useToasts } from "react-toast-notifications";
 
 const LocationDataStep = memo(({ next, back }) => {
+  const valSchema = memo(() =>
+    Yup.object().shape({
+      cep: Yup.string().required("Informe o cep"),
+      address: Yup.string().required("Informe o endereço"),
+      addressNumber: Yup.string().required("Informe o número do endereço"),
+      complement: Yup.string(),
+      burgh: Yup.string().required("Informe o bairro"),
+      cityId: Yup.string().required("Informe a cidade")
+    })
+  );
+
   const classes = useRegisterStyle();
-  const context = useContext(RegisterContext);
-
-  const valSchema = Yup.object().shape({
-    longitude: Yup.number().required("Informe a longitude"),
-    latitude: Yup.number().required("Informe a longitude"),
-    cep: Yup.string().required("Informe o cep"),
-    address: Yup.string().required("Informe o endereço"),
-    addressNumber: Yup.string().required("Informe o número do endereço"),
-    complement: Yup.string(),
-    burgh: Yup.string().required("Informe o bairro"),
-    cityId: Yup.string().required("Informe a cidade")
-  });
-
-  const initial = {
-    longitude: 0,
-    latitude: 0,
-    cep: "",
-    address: "",
-    addressNumber: "",
-    complement: "",
-    burgh: "",
-    city: "",
-    cityId: "",
-    district: "",
-    districtId: ""
-  };
-
+  const data = useContext(RegisterContext);
+  const { updateStepTwo } = data;
   const geocode = useContext(GeocodeContext);
-  const [districtId, setDistrictId] = useState("");
+  const { addToast } = useToasts();
+
+  const [districtId, setDistrictId] = useState(data.districtId);
   const [districts, setDistricts] = useState([]);
   const [cities, setCities] = useState([]);
+  const [localiz, setLocaliz] = useState(null);
 
-  function handleSubmit(values, actions) {
-    actions.setSubmitting(true);
+  useEffect(() => {
+    if (localiz && localiz.lat && localiz.lng) {
+      updateStepTwo({
+        latitude: localiz.lat,
+        longitude: localiz.lng
+      });
+    }
+  }, [localiz, updateStepTwo]);
 
-    context.updateStepOne(values);
+  useEffect(() => {
+    if (localiz && data.longitude !== 0 && data.latitude !== 0) {
+      next();
+    }
+  }, [data, next]);
 
-    next();
+  function handleSubmit(values, { setSubmitting }) {
+    setSubmitting(true);
+
+    updateStepTwo(values);
+
+    geocode
+      .fromAddress(
+        `${values["district"]}, ${values["city"]}, ${values["cep"]}, ${
+          values["address"]
+        }, ${values["addressNumber"]}`
+      )
+      .then(response => {
+        try {
+          const { lat, lng } = response.results[0].geometry.location;
+
+          setLocaliz({ lat, lng });
+        } catch {
+          addToast("Endereço inválido", {
+            appearance: "error",
+            autoDismiss: true
+          });
+        }
+      })
+      .catch(() => {
+        addToast("Endereço inválido", {
+          appearance: "error",
+          autoDismiss: true
+        });
+        updateStepTwo(values);
+      });
   }
 
   useEffect(() => {
@@ -85,7 +114,7 @@ const LocationDataStep = memo(({ next, back }) => {
       onSubmit={handleSubmit}
       validateOnBlur={false}
       validationSchema={valSchema}
-      initialValues={context.getStepTwoData()}
+      initialValues={data}
     >
       {props => (
         <Form noValidate style={{ width: "100%", height: "100%" }}>
