@@ -21,4 +21,26 @@ export const findDistricts = async () => {
 export const findCities = async (districtId) => {
   return await api.get(`/geographic/districts/${districtId}/cities`);
 };
+
+export const findAttendedModalities = async () => {
+  return await api.get(`/contracting/attended-modalities`);
+};
+
+export const findModalities = async () => {
+  return await api.get(`/contracting/modalities`);
+};
+
+export const saveAttendedModality = async (attendedModality) => {
+  if (attendedModality.id === '') {
+    return await api.post(`contracting/attended-modalities`, attendedModality);
+  }
+  else {
+    return await api.put(`contracting/attended-modalities/${attendedModality.id}`, attendedModality);
+  }
+}
+
+export const deleteAttendedModality = async (id) => {
+  return await api.delete(`contracting/attended-modalities/${id}`);
+}
+
 export default api;

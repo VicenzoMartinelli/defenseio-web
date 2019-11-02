@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import { Card, Grid, Box, Stepper, Step, StepLabel } from "@material-ui/core";
 import FlexBox from "components/FlexBox";
 import useRegisterStyle from "./style";
-import { useRouter } from "hooks/useRouter";
 import LocationDataStep from "./LocationDataStep";
 import BasicDataStep from "./BasicDataStep";
 import ConclusionStep from "./ConclusionStep";

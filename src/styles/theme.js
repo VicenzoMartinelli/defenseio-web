@@ -3,10 +3,10 @@ import { createMuiTheme } from "@material-ui/core/styles";
 export default createMuiTheme({
   palette: {
     primary: { light: "#40cf87", main: "#16d173", dark: "#329c66" },
-    secondary: { light: "#80bfff", main: "#80bfff", dark: "#80bfff" },
+    secondary: { light: "#05396b", main: "#05396b", dark: "#05396b" },
     text: {
-      primary: "#9c9c9c",
-      secondary: "#cfcfcf"
+      primary: "#828282",
+      secondary: "#9c9c9c"
     }
   },
   overrides: {
@@ -46,6 +46,19 @@ export default createMuiTheme({
         '& p': {
           color: '#FFF'
         }
+      }
+    },
+    MuiPaper: {
+      elevation1: {
+        boxShadow: '-1px -1px 13px 1px rgba(0,0,0,0.12), 2px 2px 10px 0px rgba(0,0,0,0.12)'
+      }
+    },
+    MuiChip: {
+      colorPrimary: {
+        color: '#FFF'
+      },
+      colorSecondary: {
+        color: '#FFF'
       }
     }
   }

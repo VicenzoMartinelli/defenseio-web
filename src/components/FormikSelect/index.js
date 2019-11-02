@@ -27,6 +27,8 @@ const FormikSelect = props => {
     startIconAdornment,
     formik,
     data,
+    valueProp,
+    nameProp,
     onChangeValue,
     ...restProps
   } = props;
@@ -35,7 +37,6 @@ const FormikSelect = props => {
     errors,
     isSubmitting,
     touched,
-    handleChange,
     setFieldValue
   } = formik;
 
@@ -88,7 +89,7 @@ const FormikSelect = props => {
           e.target.value,
           e.target.value === ""
             ? ""
-            : data.filter(x => x.id === e.target.value)[0].name
+            : data.filter(x => x[valueProp] === e.target.value)[0][nameProp]
         );
       }}
       error={touched[name] && errors[name] ? true : false}
@@ -106,8 +107,8 @@ const FormikSelect = props => {
         <p></p>
       </MenuItem>
       {data.map(x => (
-        <MenuItem key={x.id} value={x.id}>
-          {x.name}
+        <MenuItem key={x[valueProp]} value={x[valueProp]}>
+          {x[nameProp]}
         </MenuItem>
       ))}
     </TextField>
@@ -125,7 +126,9 @@ FormikSelect.propTypes = {
 };
 
 FormikSelect.defaultProps = {
-  onChangeValue: (value, text) => {}
+  onChangeValue: (value, text) => { },
+  valueProp: 'id',
+  nameProp: 'name'
 };
 
 export default FormikSelect;

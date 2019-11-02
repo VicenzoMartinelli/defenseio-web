@@ -1,122 +1,135 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ExitToApp from '@material-ui/icons/ExitToApp';
-import AccountCircleOutlined from '@material-ui/icons/AccountCircleOutlined';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import HomeOutlined from '@material-ui/icons/HomeOutlined';
-import { getConfirm } from '../../services/auth';
-import { Box, Popover } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { ReceiptOutlined, AssignmentOutlined, AssignmentSharp, PersonOutline } from '@material-ui/icons';
-import * as auth from '../../services/auth';
-import history from '../../history';
-import theme from 'styles/theme';
+import React from "react";
+import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ExitToApp from "@material-ui/icons/ExitToApp";
+import AccountCircleOutlined from "@material-ui/icons/AccountCircleOutlined";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import { Box, Popover, Hidden } from "@material-ui/core";
+import * as auth from "../../services/auth";
+import history from "../../history";
+import FlexBox from "components/FlexBox";
+import Logo from "../../assets/logo.svg";
+import Menu from "./Menu";
 
-
-const primaryColor = theme.palette.primary;
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
+    display: "flex"
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
-    background: '#fff',
-    boxShadow: '-3px -3px 40px -19px rgba(0,0,0,0.75)'
+    background: "#fff",
+    boxShadow: "-3px -3px 40px -19px rgba(0,0,0,0.75)"
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+      duration: theme.transitions.duration.enteringScreen
+    })
   },
   margLeftSmall: {
     marginLeft: theme.spacing(2)
   },
   boxMenu: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    width: '100%'
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    width: "100%"
   },
   boxLeftMenu: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center"
   },
   menuButton: {
     marginRight: theme.spacing(2),
     color: theme.palette.primary
   },
   hide: {
-    display: 'none',
+    display: "none"
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerPaper: {
     width: drawerWidth,
+    [theme.breakpoints.down("md")]: {
+      width: "100%"
+    }
   },
+
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0 8px',
+    display: "flex",
+    alignItems: "center",
+    padding: "0 8px",
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end"
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: -drawerWidth,
+    marginLeft: -drawerWidth
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
+      duration: theme.transitions.duration.enteringScreen
     }),
-    marginLeft: 0,
+    marginLeft: 0
+  },
+  centerTitle: {
+    flex: 5,
+    textAlign: "start",
+    alignSelf: "center",
+    display: 'inline-flex'
   },
   colorPrimary: {
     color: theme.palette.primary
   },
   fab: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1)
   },
   extendedIcon: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  logoContainer: {
+    flex: 6,
+    display: "flex",
+    justifyContent: "start"
+  },
+  logo: {
+    width: 53,
+    height: 53
+  },
+  fullWidth: {
+    width: "100%"
   }
 }));
 
 export default function Header({ open, setOpen, ...rest }) {
   const classes = useStyles();
   const theme = useTheme();
-  const confirm = getConfirm();
   const setOpened = setOpen;
   const [openDrop, setOpenDrop] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -133,32 +146,31 @@ export default function Header({ open, setOpen, ...rest }) {
   }
   function handleClickAway() {
     setOpenDrop(false);
-  };
+  }
   function handleClickDropdown(event) {
     setAnchorEl(event.currentTarget);
     setOpenDrop(true);
-  };
-
+  }
   function handleExit() {
     auth.logout();
-    history.replace('/login');
+    history.replace("/");
   }
 
-  const id = openDrop ? 'simple-popover' : undefined;
+  const id = openDrop ? "simple-popover" : undefined;
 
   return (
     <>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: open
         })}
       >
         <Toolbar>
           <Box className={classes.boxMenu}>
-            <Box className={classes.boxLeftMenu}>
+            <Box className={clsx(classes.boxLeftMenu, classes.fullWidth)}>
               <IconButton
-                color="inherit"
+                color="secondary"
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
                 edge="start"
@@ -166,16 +178,28 @@ export default function Header({ open, setOpen, ...rest }) {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" className={clsx(classes.colorPrimary, classes.margLeftSmall)} noWrap>Defense IO</Typography>
+              <FlexBox direction="row" justify="center" max="true">
+                <Hidden smDown>
+                  <Typography
+                    variant="h6"
+                    color="primary"
+                    className={clsx(classes.margLeftSmall, classes.centerTitle)}
+                    noWrap
+                  >
+                    Defense. <Typography color="secondary" variant="h6"> IO</Typography>
+                  </Typography>
+                </Hidden>
+
+                <div className={classes.logoContainer}>
+                  <img src={Logo} className={classes.logo} />
+                </div>
+              </FlexBox>
             </Box>
             <Box className={classes.boxLeftMenu}>
-              <Typography variant="h6" className={classes.colorPrimary} noWrap>
-                {confirm.Email}
-              </Typography>
               <ClickAwayListener onClickAway={handleClickAway}>
                 <div>
                   <IconButton onClick={handleClickDropdown}>
-                    <AccountCircleOutlined htmlColor={primaryColor} />
+                    <AccountCircleOutlined color="primary" />
                   </IconButton>
                   <Popover
                     id={id}
@@ -183,12 +207,12 @@ export default function Header({ open, setOpen, ...rest }) {
                     onClose={handleClose}
                     anchorEl={anchorEl}
                     anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'center',
+                      vertical: "bottom",
+                      horizontal: "center"
                     }}
                     transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'center',
+                      vertical: "top",
+                      horizontal: "center"
                     }}
                   >
                     <List component="nav" aria-label="main mailbox folders">
@@ -203,56 +227,11 @@ export default function Header({ open, setOpen, ...rest }) {
                 </div>
               </ClickAwayListener>
             </Box>
-
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon htmlColor={primaryColor} /> : <ChevronRightIcon htmlColor={primaryColor} />}
-          </IconButton>
-        </div>
-        <Divider />
 
-        <ListItem button component={Link} to={'/'} >
-          <ListItemIcon><HomeOutlined htmlColor={primaryColor} /></ListItemIcon>
-          <ListItemText className={classes.colorPrimary} primary={'Home'} />
-        </ListItem>
-        <Divider />
-
-        <ListItem button component={Link} to={'/articles/sei'} >
-          <ListItemIcon><AssignmentOutlined htmlColor={primaryColor} /></ListItemIcon>
-          <ListItemText className={classes.colorPrimary} primary={'Artigos Sei'} />
-        </ListItem>
-
-        <ListItem button component={Link} to={'/articles/sicite'} >
-          <ListItemIcon><AssignmentSharp htmlColor={primaryColor} /></ListItemIcon>
-          <ListItemText className={classes.colorPrimary} primary={'Artigos Sicite'} />
-        </ListItem>
-
-        <Divider />
-
-        <ListItem button component={Link} to={'/aprovacao-avaliadores'} >
-          <ListItemIcon><PersonOutline htmlColor={primaryColor} /></ListItemIcon>
-          <ListItemText className={classes.colorPrimary} primary={'Avaliadores'} />
-        </ListItem>
-
-        <Divider />
-
-        <ListItem button component={Link} to={'/relatorio'} >
-          <ListItemIcon><ReceiptOutlined htmlColor={primaryColor} /></ListItemIcon>
-          <ListItemText className={classes.colorPrimary} primary={'Relatório'} />
-        </ListItem>
-      </Drawer>
+      <Menu classes={classes} open={open} handleDrawerClose={handleDrawerClose} />
     </>
   );
 }

@@ -6,9 +6,11 @@ import useRegisterStyle from "./style";
 import RegisterContext from "./RegisterContext";
 import { register } from "services/auth";
 import { useToasts } from "react-toast-notifications";
+import { useRouter } from "hooks/useRouter";
 
 const ConclusionStep = memo(({ back }) => {
   const classes = useRegisterStyle();
+  const { push } = useRouter();
 
   const data = useContext(RegisterContext);
 
@@ -31,6 +33,10 @@ const ConclusionStep = memo(({ back }) => {
           appearance: "success",
           autoDismiss: true
         });
+
+        setTimeout(() => {
+          push('/provider/home');
+        }, 3000)
         return false;
       })
       .catch(err => {

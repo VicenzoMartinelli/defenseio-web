@@ -50,8 +50,6 @@ const BasicDataStep = memo(({ next }) => {
 
   const initial = context.getStepOneData();
 
-  console.log("initial", initial);
-
   return (
     <Formik
       onSubmit={handleSubmit}

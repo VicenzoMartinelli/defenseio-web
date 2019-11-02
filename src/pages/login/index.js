@@ -59,7 +59,7 @@ const LoginPage = props => {
 
         addToast("Login ok!", { appearance: "success", autoDismiss: true });
         setTimeout(() => {
-          router.push("/home");
+          router.push("/provider/home");
         });
       })
       .catch(err => {
@@ -73,7 +73,7 @@ const LoginPage = props => {
   });
 
   useEffect(() => {
-    if (auth.loggedIn()) router.push("/");
+    if (auth.loggedIn()) router.push("/provider/home");
   }, []);
 
   return (
@@ -146,6 +146,7 @@ const LoginPage = props => {
 
                       <Button
                         variant="text"
+                        color="secondary"
                         disabled={props.isSubmitting}
                         className={[classes.registerButton]}
                         onClick={handleRegisterClick}
