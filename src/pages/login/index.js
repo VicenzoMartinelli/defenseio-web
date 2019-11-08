@@ -94,9 +94,9 @@ const LoginPage = props => {
               justify="center"
               direction="column"
               wrap="nowrap"
-              padd="10% 15%"
+              padd="5% 12%"
             >
-              <Typography variant="h4" color="primary">
+              <Typography variant="h5" color="primary">
                 Bem vindo ao DefenseIO
               </Typography>
               <Typography variant="subtitle1" color="textPrimary">

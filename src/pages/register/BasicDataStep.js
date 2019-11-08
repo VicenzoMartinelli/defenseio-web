@@ -14,10 +14,12 @@ import { Form, Formik } from "formik";
 import useRegisterStyle from "./style";
 import * as Yup from "yup";
 import RegisterContext from "./RegisterContext";
+import { useRouter } from "hooks/useRouter";
 
 const BasicDataStep = memo(({ next }) => {
   const classes = useRegisterStyle();
   const context = useContext(RegisterContext);
+  const { push } = useRouter();
 
   const valSchema = Yup.object().shape({
     name: Yup.string().required("Informe o nome de sua empresa"),
@@ -162,7 +164,7 @@ const BasicDataStep = memo(({ next }) => {
             direction="row"
             justify="space-between"
           >
-            <Button className={classes.backButton} disabled variant="outlined">
+            <Button onClick={() => push('/')} className={classes.backButton} variant="outlined">
               Voltar
             </Button>
             <Button variant="contained" color="primary" type="submit">
