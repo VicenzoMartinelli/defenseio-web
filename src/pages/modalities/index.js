@@ -58,7 +58,9 @@ const Modalities = () => {
     const classes = useStyles()
     const { addToast } = useToasts();
 
-    const { data, isLoading, isResolved, reload } = useAsync(findAttendedModalities)
+    const { data, isLoading, isResolved, reload } = useAsync({
+        promiseFn: findAttendedModalities
+    })
     const { data: dataModalities, isResolved: isModalitiesResolved } = useAsync(findModalities)
 
     const [selectedAttendedModality, setSelectedAttendedModality] = useState()
