@@ -15,13 +15,16 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const PageTitle = ({ label, ...props }) => {
+const PageTitle = ({ label, iconComponent, ...props }) => {
   const classes = useStyles()
+  const IcComponent = iconComponent;
+
+  const Icon = iconComponent === undefined ? <MenuOutlined className={classes.icon} /> : <IcComponent className={classes.icon} />
 
   return (
     <Breadcrumbs {...props}>
       <Typography variant="h5" color="textPrimary" className={classes.link}>
-        <MenuOutlined className={classes.icon} />
+        {Icon}
         {label}
       </Typography>
     </Breadcrumbs>

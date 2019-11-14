@@ -3,18 +3,18 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useAsync } from 'react-async'
 import { useToasts } from "react-toast-notifications";
 
-import { Delete, Add as AddIcon } from '@material-ui/icons';
-import { Dialog, DialogTitle, DialogActions, Button, makeStyles, InputBase, IconButton, Paper, Grid, Fab, Container } from '@material-ui/core';
+import { Add as AddIcon } from '@material-ui/icons';
+import { Dialog, DialogTitle, DialogActions, Button, makeStyles, Paper, Grid } from '@material-ui/core';
 
 import Loading from "../../components/Loading";
 import FlexBox from '../../components/FlexBox';
 import PageTitle from '../../components/PageTitle';
-import DangerButton from '../../components/DangerButton';
 import CardAttendedModality from './CardAttendedModality';
 
 import { findAttendedModalities, findModalities, deleteAttendedModality } from '../../services/api';
 import AttendedModalityForm from './AttendedModalityForm';
 import { red } from '@material-ui/core/colors';
+import { bilingMethodsList } from 'services/enums';
 
 const useStyles = makeStyles(theme => ({
     dialogActions: {
@@ -47,12 +47,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const bilingMethodsList = [
-    "Hora",
-    "Período",
-    "Quilômetro",
-    "Valor fixo"
-];
+
 
 const Modalities = () => {
     const classes = useStyles()
