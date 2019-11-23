@@ -40,7 +40,8 @@ const useLoginStyle = makeStyles({
   registerButton: {
     marginTop: 10,
     display: "block"
-  }
+  },
+  form: { width: "100%", height: "100%" }
 });
 
 export default useLoginStyle;

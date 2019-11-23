@@ -186,7 +186,7 @@ export default function Header({ open, setOpen, ...rest }) {
                     className={clsx(classes.margLeftSmall, classes.centerTitle)}
                     noWrap
                   >
-                    Defense. <Typography color="secondary" variant="h6"> IO</Typography>
+                    Defense. <Typography color="secondary" variant="inherit"> IO</Typography>
                   </Typography>
                 </Hidden>
 

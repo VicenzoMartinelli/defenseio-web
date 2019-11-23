@@ -68,9 +68,9 @@ const LoginPage = props => {
       });
   }
 
-  const handleRegisterClick = useCallback(() => {
+  function handleRegisterClick() {
     router.push("/register");
-  });
+  }
 
   useEffect(() => {
     if (auth.loggedIn()) router.push("/provider/home");
@@ -108,7 +108,7 @@ const LoginPage = props => {
                 initialValues={initial}
               >
                 {props => (
-                  <Form noValidate style={{ width: "100%", height: "100%" }}>
+                  <Form noValidate style={classes.form}>
                     <FormikTextInput
                       name="documentIdentifier"
                       label="Seu CNPJ: *"

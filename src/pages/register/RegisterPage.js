@@ -12,7 +12,7 @@ const RegisterPage = () => {
   const classes = useRegisterStyle();
 
   const getSteps = useCallback(() => {
-    return ["Dados básicos", "Localização", "Modalidades"];
+    return ["Dados básicos", "Localização", "Finalização"];
   }, []);
 
   const getStepContent = () => {

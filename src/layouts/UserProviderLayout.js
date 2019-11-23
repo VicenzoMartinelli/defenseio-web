@@ -8,6 +8,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import withAuth from "../components/wrappers/withAuth";
 import Header from "../components/Header";
 import NotFound from "../pages/notfound";
+import Negociations from "pages/negociations";
 
 const drawerWidth = 250;
 
@@ -68,6 +69,7 @@ const UserProviderLayout = () => {
             <Switch>
               <Route exact path={["/provider/home"]} component={Home} />
               <Route exact path={["/provider/modalities"]} component={Modalities} />
+              <Route exact path={["/provider/negociations"]} component={Negociations} />
               <Route component={NotFound} />
             </Switch>
           </Suspense>

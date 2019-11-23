@@ -44,7 +44,7 @@ export const deleteAttendedModality = async (id) => {
 }
 
 export const findOpenedSolicitations = async () => {
-  return await api.get(`/contracting/solicitations/opened`);
+  return await api.get(`/contracting/solicitations/created`);
 };
 
 export const acceptSolicitation = async (id, numberOfEmployeers) => {

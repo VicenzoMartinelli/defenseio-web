@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import {
-  AssignmentOutlined
+  AssignmentOutlined, ChatBubbleOutline, DashboardOutlined
 } from "@material-ui/icons";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -44,6 +44,17 @@ export default function Menu({ classes, handleDrawerClose, open }) {
           className={classes.colorsecondary}
           secondary={<Typography color="secondary">Home</Typography>} />
       </ListItem>
+      <Divider />
+
+      <ListItem button component={Link} to={"/provider/dashboard"}>
+        <ListItemIcon>
+          <DashboardOutlined color="secondary" />
+        </ListItemIcon>
+        <ListItemText
+          className={classes.colorsecondary}
+          secondary={<Typography color="secondary">Dashboard</Typography>}
+        />
+      </ListItem>
 
       <Divider />
 
@@ -54,6 +65,18 @@ export default function Menu({ classes, handleDrawerClose, open }) {
         <ListItemText
           className={classes.colorsecondary}
           secondary={<Typography color="secondary">Modalidades</Typography>}
+        />
+      </ListItem>
+
+      <Divider />
+
+      <ListItem button component={Link} to={"/provider/negociations"}>
+        <ListItemIcon>
+          <ChatBubbleOutline color="secondary" />
+        </ListItemIcon>
+        <ListItemText
+          className={classes.colorsecondary}
+          secondary={<Typography color="secondary">Negociações</Typography>}
         />
       </ListItem>
     </Drawer>
