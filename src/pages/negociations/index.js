@@ -94,21 +94,16 @@ const Negociations = props => {
     }
 
     const handleReceiveMessage = (received) => {
-        console.log('clietId', received.clientId)
-        console.log('negociacaoaberta', currentNegociation)
-
         if (received.clientId === currentNegociation) {
-            console.log(messages)
-            console.log(dataMessages)
-            setMessages([...messages, received]);
+            setMessages(msgs => [...msgs, received]);
         }
         else {
             let oldNegociation = negociations.filter(x => x.userId === received.clientId)[0];
 
-            setNegociations([{
+            setNegociations(ngs => [{
                 ...oldNegociation,
                 content: received.content
-            }, ...negociations.filter(x => x.userId !== received.clientId)])
+            }, ...ngs.filter(x => x.userId !== received.clientId)])
         }
     }
 

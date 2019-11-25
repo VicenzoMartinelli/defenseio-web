@@ -108,7 +108,7 @@ const LoginPage = props => {
                 initialValues={initial}
               >
                 {props => (
-                  <Form noValidate style={classes.form}>
+                  <Form noValidate className={classes.form}>
                     <FormikTextInput
                       name="documentIdentifier"
                       label="Seu CNPJ: *"
@@ -129,7 +129,7 @@ const LoginPage = props => {
                     <FlexBox
                       container
                       alignItems="flex-start"
-                      justify="start"
+                      justify="flex-start"
                       direction="column"
                       margin="0 0 50 0"
                     >
@@ -148,7 +148,7 @@ const LoginPage = props => {
                         variant="text"
                         color="secondary"
                         disabled={props.isSubmitting}
-                        className={[classes.registerButton]}
+                        className={classes.registerButton}
                         onClick={handleRegisterClick}
                       >
                         Não possuo um cadastro
